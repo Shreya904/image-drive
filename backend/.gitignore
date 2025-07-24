@@ -1,0 +1,9 @@
+# .gitignore inside backend/
+
+node_modules/
+.env
+logs/
+dist/
+.cache
+tmp/
+*.log
