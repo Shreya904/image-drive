@@ -225,7 +225,7 @@ const Dashboard = () => {
               className="bg-gray-700 rounded-lg overflow-hidden shadow-md"
             >
               <img
-                src={`http://localhost:5000${img.imageUrl}`}
+                src={`https://image-drive-kfdu.onrender.com${img.imageUrl}`}
                 alt={img.name}
                 className="w-full h-40 object-cover"
               />
