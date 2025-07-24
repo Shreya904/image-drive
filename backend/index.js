@@ -40,7 +40,7 @@ app.get("/api/test", (req, res) => {
 
 // MongoDB Connection
 mongoose
-  .connect("your-mongo-uri-here", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
