@@ -12,7 +12,10 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend port
+    origin: [
+      "http://localhost:5173", // local frontend
+      "https://image-drive-snowy.vercel.app", // production frontend
+    ],
     credentials: true,
   })
 );
