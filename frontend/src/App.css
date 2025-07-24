@@ -1,0 +1,73 @@
+.dashboard-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
+}
+
+.folder-form,
+.image-upload-section,
+.image-gallery,
+.folder-list {
+  margin-bottom: 2rem;
+}
+
+.folder-form label,
+.folder-form select,
+.folder-form input {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.folder-form input,
+.folder-form select {
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+
+.status-message {
+  margin-top: 0.5rem;
+  color: green;
+}
+
+.image-gallery h2,
+.image-upload-section h2,
+.folder-list h2 {
+  margin-bottom: 1rem;
+}
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.image-card {
+  background: #f2f2f2;
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.image-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.folder-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.folder-list li {
+  margin-bottom: 0.5rem;
+}
+
+.subfolder {
+  font-size: 0.85rem;
+  color: #777;
+  margin-left: 0.5rem;
+}
