@@ -3,6 +3,27 @@ import axios from "../api/axios";
 import ImageUpload from "../components/ImageUpload";
 import { getToken } from "../utils/auth";
 
+const FolderNode = ({ folder, folders, level }) => {
+  const children = folders.filter((f) => f.parent === folder._id);
+
+  return (
+    <div className="ml-4">
+      <div className="flex items-center text-gray-300 py-1">
+        <span className="mr-2">{level > 0 ? "├─" : "📁"}</span>
+        <span className="text-yellow-400">{folder.name}</span>
+      </div>
+      {children.map((child) => (
+        <FolderNode
+          key={child._id}
+          folder={child}
+          folders={folders}
+          level={level + 1}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Dashboard = () => {
   const [folders, setFolders] = useState([]);
   const [images, setImages] = useState([]);
@@ -77,6 +98,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
+      {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">📁 Dashboard</h1>
         <button
@@ -86,6 +108,7 @@ const Dashboard = () => {
           Logout
         </button>
       </div>
+
       {/* Folder Creation */}
       <form
         onSubmit={handleFolderCreate}
@@ -121,36 +144,23 @@ const Dashboard = () => {
         </button>
         {message && <p className="mt-2 text-sm text-green-400">{message}</p>}
       </form>
+
       {/* Folder List */}
       <div className="bg-gray-800 p-4 rounded-lg mb-6">
         <h2 className="text-xl font-semibold mb-4">Your Folders</h2>
         <div className="space-y-1">
-          {/* Root folders (no parent) */}
           {folders
             .filter((folder) => !folder.parent)
             .map((folder) => (
-              <div key={folder._id}>
-                <div className="flex items-center text-gray-300 py-1">
-                  <span className="text-yellow-400 mr-2">📁</span>
-                  <strong className="text-white">{folder.name}</strong>
-                </div>
-                {/* Child folders */}
-                {folders
-                  .filter((childFolder) => childFolder.parent === folder._id)
-                  .map((childFolder) => (
-                    <div
-                      key={childFolder._id}
-                      className="ml-6 flex items-center text-gray-400 py-1"
-                    >
-                      <span className="text-gray-500 mr-2">├─</span>
-                      <span className="text-blue-400 mr-2">📁</span>
-                      <span>{childFolder.name}</span>
-                    </div>
-                  ))}
-              </div>
+              <FolderNode
+                key={folder._id}
+                folder={folder}
+                folders={folders}
+                level={0}
+              />
             ))}
 
-          {/* Show orphaned folders (parent doesn't exist) */}
+          {/* Show orphaned folders */}
           {folders
             .filter(
               (folder) =>
@@ -169,11 +179,13 @@ const Dashboard = () => {
             ))}
         </div>
       </div>
+
       {/* Image Upload */}
       <div className="bg-gray-800 p-4 rounded-lg mb-6">
         <h2 className="text-xl font-semibold mb-4">Upload Image</h2>
         <ImageUpload />
       </div>
+
       {/* Search Section */}
       <div className="bg-gray-800 p-4 rounded-lg mb-6">
         <h2 className="text-xl font-semibold mb-4">Search Images</h2>
@@ -192,13 +204,17 @@ const Dashboard = () => {
             Search
           </button>
           <button
-            onClick={fetchImages}
+            onClick={() => {
+              setSearchQuery(""); // <-- Clears the search bar
+              fetchImages(); // <-- Reloads all images
+            }}
             className="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded"
           >
             Clear
           </button>
         </div>
       </div>
+
       {/* Image Gallery */}
       <div className="bg-gray-800 p-4 rounded-lg">
         <h2 className="text-xl font-semibold mb-4">Your Images</h2>
