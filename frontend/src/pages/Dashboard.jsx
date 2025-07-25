@@ -225,10 +225,15 @@ const Dashboard = () => {
               className="bg-gray-700 rounded-lg overflow-hidden shadow-md"
             >
               <img
-                src={`https://image-drive-kfdu.onrender.com${img.imageUrl}`}
+                src={
+                  img.imageUrl.startsWith("http")
+                    ? img.imageUrl
+                    : `https://image-drive-kfdu.onrender.com${img.imageUrl}`
+                }
                 alt={img.name}
                 className="w-full h-40 object-cover"
               />
+
               <p className="text-center py-2 text-sm">{img.name}</p>
             </div>
           ))}
