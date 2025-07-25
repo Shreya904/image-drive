@@ -10,7 +10,7 @@ export const uploadImage = async (req, res) => {
 
     const image = await Image.create({
       name,
-      imageUrl: `/uploads/${file.filename}`,
+      imageUrl: file.path, // Cloudinary gives a full URL here
       folder: folder || null,
       user: req.userId,
     });
